@@ -14,7 +14,153 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attribution_results: {
+        Row: {
+          attributed_conversions: number
+          attributed_revenue: number
+          calculated_at: string
+          channel: string
+          date_range_end: string
+          date_range_start: string
+          id: string
+          model_type: string
+        }
+        Insert: {
+          attributed_conversions?: number
+          attributed_revenue?: number
+          calculated_at?: string
+          channel: string
+          date_range_end: string
+          date_range_start: string
+          id?: string
+          model_type: string
+        }
+        Update: {
+          attributed_conversions?: number
+          attributed_revenue?: number
+          calculated_at?: string
+          channel?: string
+          date_range_end?: string
+          date_range_start?: string
+          id?: string
+          model_type?: string
+        }
+        Relationships: []
+      }
+      campaign_performance: {
+        Row: {
+          campaign_id: string
+          campaign_name: string
+          channel: string
+          clicks: number
+          conversions: number
+          cost: number
+          created_at: string
+          date: string
+          device: string | null
+          geo: string | null
+          id: string
+          impressions: number
+          revenue: number
+        }
+        Insert: {
+          campaign_id: string
+          campaign_name: string
+          channel: string
+          clicks?: number
+          conversions?: number
+          cost?: number
+          created_at?: string
+          date: string
+          device?: string | null
+          geo?: string | null
+          id?: string
+          impressions?: number
+          revenue?: number
+        }
+        Update: {
+          campaign_id?: string
+          campaign_name?: string
+          channel?: string
+          clicks?: number
+          conversions?: number
+          cost?: number
+          created_at?: string
+          date?: string
+          device?: string | null
+          geo?: string | null
+          id?: string
+          impressions?: number
+          revenue?: number
+        }
+        Relationships: []
+      }
+      sync_status: {
+        Row: {
+          completed_at: string | null
+          error_message: string | null
+          id: string
+          records_synced: number | null
+          started_at: string
+          status: string
+          sync_type: string
+        }
+        Insert: {
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          started_at?: string
+          status?: string
+          sync_type: string
+        }
+        Update: {
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          started_at?: string
+          status?: string
+          sync_type?: string
+        }
+        Relationships: []
+      }
+      user_journeys: {
+        Row: {
+          channel: string
+          conversion_value: number | null
+          converted: boolean
+          created_at: string
+          id: string
+          journey_id: string
+          session_id: string
+          timestamp: string
+          touchpoint_order: number
+        }
+        Insert: {
+          channel: string
+          conversion_value?: number | null
+          converted?: boolean
+          created_at?: string
+          id?: string
+          journey_id: string
+          session_id: string
+          timestamp: string
+          touchpoint_order: number
+        }
+        Update: {
+          channel?: string
+          conversion_value?: number | null
+          converted?: boolean
+          created_at?: string
+          id?: string
+          journey_id?: string
+          session_id?: string
+          timestamp?: string
+          touchpoint_order?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

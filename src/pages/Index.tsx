@@ -1,4 +1,4 @@
-import { Eye, MousePointerClick, ShoppingCart, DollarSign } from 'lucide-react';
+import { Eye, MousePointerClick, ShoppingCart, DollarSign, Loader2 } from 'lucide-react';
 import { Header } from '@/components/dashboard/Header';
 import { KPICard } from '@/components/dashboard/KPICard';
 import { PerformanceChart } from '@/components/dashboard/PerformanceChart';
@@ -6,46 +6,70 @@ import { AttributionChart } from '@/components/dashboard/AttributionChart';
 import { ChannelTable } from '@/components/dashboard/ChannelTable';
 import { RecommendationCard } from '@/components/dashboard/RecommendationCard';
 import { JourneyFunnel } from '@/components/dashboard/JourneyFunnel';
-import { kpiSummary, recommendations } from '@/lib/mockData';
+import { useKPISummary } from '@/hooks/useCampaignData';
+import { recommendations } from '@/lib/mockData';
 
 const Index = () => {
+  const { data: kpiSummary, isLoading } = useKPISummary();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Loading campaign data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Header />
         
+        {/* Empty State */}
+        {!kpiSummary && (
+          <div className="mb-8 p-8 glass-card text-center">
+            <p className="text-lg text-muted-foreground mb-2">No campaign data yet</p>
+            <p className="text-sm text-muted-foreground">Click "Sync Data" to generate mock campaign data</p>
+          </div>
+        )}
+        
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <KPICard
-            title="Impressions"
-            value={`${(kpiSummary.totalImpressions / 1000000).toFixed(2)}M`}
-            change={kpiSummary.impressionChange}
-            icon={<Eye className="h-5 w-5" />}
-            delay={0}
-          />
-          <KPICard
-            title="Clicks"
-            value={`${(kpiSummary.totalClicks / 1000).toFixed(1)}K`}
-            change={kpiSummary.clickChange}
-            icon={<MousePointerClick className="h-5 w-5" />}
-            delay={50}
-          />
-          <KPICard
-            title="Conversions"
-            value={kpiSummary.totalConversions.toLocaleString()}
-            change={kpiSummary.conversionChange}
-            icon={<ShoppingCart className="h-5 w-5" />}
-            delay={100}
-          />
-          <KPICard
-            title="ROAS"
-            value={`${kpiSummary.avgROAS.toFixed(2)}x`}
-            change={kpiSummary.roasChange * 10}
-            changeLabel="vs benchmark"
-            icon={<DollarSign className="h-5 w-5" />}
-            delay={150}
-          />
-        </div>
+        {kpiSummary && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <KPICard
+              title="Impressions"
+              value={`${(kpiSummary.totalImpressions / 1000000).toFixed(2)}M`}
+              change={kpiSummary.impressionsChange}
+              icon={<Eye className="h-5 w-5" />}
+              delay={0}
+            />
+            <KPICard
+              title="Clicks"
+              value={`${(kpiSummary.totalClicks / 1000).toFixed(1)}K`}
+              change={kpiSummary.clicksChange}
+              icon={<MousePointerClick className="h-5 w-5" />}
+              delay={50}
+            />
+            <KPICard
+              title="Conversions"
+              value={kpiSummary.totalConversions.toLocaleString()}
+              change={kpiSummary.conversionsChange}
+              icon={<ShoppingCart className="h-5 w-5" />}
+              delay={100}
+            />
+            <KPICard
+              title="ROAS"
+              value={`${kpiSummary.avgRoas.toFixed(2)}x`}
+              change={kpiSummary.roasChange}
+              changeLabel="vs benchmark"
+              icon={<DollarSign className="h-5 w-5" />}
+              delay={150}
+            />
+          </div>
+        )}
 
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -83,7 +107,7 @@ const Index = () => {
         <footer className="mt-12 pt-6 border-t border-border">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>Campaign Analytics Dashboard • Powered by Multi-Touch Attribution</p>
-            <p>Data refreshed every 5 minutes</p>
+            <p>Data refreshed on sync</p>
           </div>
         </footer>
       </div>
