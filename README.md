@@ -21,15 +21,15 @@ A comprehensive marketing analytics dashboard that provides real-time campaign p
 <div align="center">
 
 ### Dashboard Overview
-![Dashboard Overview](public/images/dashboard-overview.png)
+![Dashboard Overview](Screenshot%202025-12-06%20at%209.12.34%20PM.png)
 *Real-time KPI cards with impressions, clicks, conversions, and ROAS metrics alongside interactive performance charts*
 
 ### Channel Performance Analytics
-![Channel Performance](public/images/channel-performance.png)
+![Channel Performance](Screenshot%202025-12-06%20at%209.12.55%20PM.png)
 *Detailed breakdown of metrics by advertising channel including CTR, CVR, CPA, and revenue analysis*
 
 ### Optimization Recommendations
-![Optimization Recommendations](public/images/recommendations.png)
+![Optimization Recommendations](Screenshot%202025-12-06%20at%209.13.08%20PM.png)
 *AI-powered recommendations and top conversion path analysis for campaign optimization*
 
 </div>
