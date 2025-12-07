@@ -1,1 +1,4 @@
 project_id = "freluzugloojpvmtynua"
+
+[functions.google-ads-sync]
+verify_jwt = false
